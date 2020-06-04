@@ -1,0 +1,88 @@
+{{define "create_view"}}
+<form enctype="multipart/form-data" action="/reviews/create/upload" method="post" name="storeForm" class="storeForm" >
+<h3 class="create_title">Please input info</h3>
+<p>
+    <!--<h6>Store's name</h6>-->
+    <input name="store_name" placeholder="Store's name">
+</p>
+<p>
+    <!--<h6>Store's PhoneNumber</h6>-->
+    <input type="tel" name="phone_number" placeholder="Store's PhoneNumber">
+</p>
+<p>
+    Location
+    <input type="hidden"/>
+<p>
+    Date<br><br>
+    <input type="date" name="date" id="date">
+    <input type="datetime" name="write_date" id="write_date" style="visibility: hidden;">
+</p>
+<p>
+    Store's picture<br><br>
+    <input type="file" name="image"  accept="image/x-png,image/gif,image/jpeg" multiple>
+</p>
+<p>
+    <!--<h6>Author</h6>-->
+    <input type="text" name="author" placeholder="Author">
+</p>
+<p>
+    <!--<h6>Title</h6>-->
+    <input type="text" name="title" maxlength="80" placeholder="Title">
+</p>
+<p>
+    <!--<h6>Comment</h6>-->
+    <textarea rows="10" cols="50" name="comment" placeholder="Comment">
+
+    </textarea>
+</p>
+<p>
+    <input type="hidden" id="csrfToken" value='{{.csrfFiled}}'/>
+    <input type="submit" value="Submit" onclick=Submit() class="form_btn">
+    <input type="button" onclick="location.href = '/reviews'"; value="Cancel" class="form_btn"/>
+</p>
+</form>
+
+<script>
+    document.getElementById('write_date').value= new Date().toISOString().slice(0, -1);
+    document.getElementById('date').value=new Date().toISOString().substring(0,10);
+
+    function Submit() {
+        //alert("sending....");
+        document.storeForm.submit();
+    }
+
+</script>
+<style type="text/css" media="screen">
+
+        .storeForm {
+            background-color: rgba(93, 93, 93, 0.4);
+            -moz-border-radius: 7px;
+            -webkit-border-radius: 7px;
+        }
+
+        .storeForm p {
+            margin: 3% 8% auto;
+        }
+
+        .storeForm input {
+            -webkit-box-sizing: border-box;
+            -moz-box-sizing: border-box;
+            -ms-box-sizing: border-box;
+            box-sizing: border-box;
+            border: 3px solid rgba(0,0,0,0);    
+        }
+
+        .create_title {
+           padding: 3%;
+        }
+
+        .form_btn {
+            margin: auto auto 5%;
+        }
+
+        
+</style>
+{{end}}
+{{define "content"}}
+{{template "create_view" .}}
+{{end}}

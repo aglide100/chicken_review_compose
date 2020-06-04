@@ -1,0 +1,91 @@
+{{define "show_view"}}
+<article class="content"]>
+    <header class="header">
+        <button type="button" onclick="location.href = '/'";>Go to home</button>
+        <h2>StoreName : {{.StoreName}}</h2>
+        <h2>{{.Title}}</h2>
+        <img src="{{.DefaultPictureURL}}" style="width:60%; height:30%;" id="DefaultPictureURL" onerror="document.getElementById(this.id).remove()" onclick="location.href = '{{.DefaultPictureURL}}';"/>
+       
+        <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBwlNqAEil52XRPHmSVb4Luk18qQG9GqcM&sensor=false&language=en" type="text/javascript"></script>
+    <script type="text/javascript"> 
+    function initialize() {
+
+    
+    var myLatlng = new google.maps.LatLng(37.556911,126.918694);
+
+    var myOptions = {
+        zoom: 15,
+        center: myLatlng,
+        mapTypeId: google.maps.MapTypeId.TERRAIN
+    }
+    var map = new google.maps.Map(document.getElementById("map_canvas"), myOptions);
+
+    var marker = new google.maps.Marker( {
+        position: myLatlng, 
+        map: map, 
+        title:"Seoul" 
+    });   
+    var infowindow = new google.maps.InfoWindow( {
+        content: "Seoul gangnam"
+    });
+        infowindow.open(map,marker);
+    }
+    window.onload=function() {
+        initialize();
+    }
+
+    function btnDelete() {
+        var check = confirm("delete review?");
+       
+        if(check == true) {
+            location.href = '/delete/{{.ID}}';
+        }
+        
+    }
+    </script>
+    
+        
+    </header>
+    
+    <details class="details">
+        <summary>Details</summary>
+        
+        <p>Phone Number : {{.PhoneNumber}}</p>
+        <p>Location : 
+        <div id="map_canvas" style="width:50%; height:15%;"></div>
+        </p>
+        <h3>{{.Title}}</h3>
+        {{.Comment}}
+    </details>
+    <p>posted on <time datetime={{.Date}}>{{.Date}}</time> by {{.Author}}</p>
+    <footer>
+        <button type="button" onclick="location.href = '/update/{{.ID}}'";>Update review</button>
+        <button type="button" onclick=btnDelete();>Delete review</button>
+    </footer>
+</article>
+
+<style type="text/css" media="screen">
+    .content {
+        background-color: rgba(93, 93, 93, 0.4);
+        -moz-border-radius: 7px;
+        -webkit-border-radius: 7px;
+        padding: 3%
+    }
+
+    .details {
+        -webkit-box-sizing: border-box;
+        -moz-box-sizing: border-box;
+        -ms-box-sizing: border-box;
+        box-sizing: border-box;
+        border: 3px solid rgba(0,0,0,0);   
+
+    }
+    .header {
+       
+    }
+</style>
+{{end}}
+
+{{define "content"}}
+{{template "show_view" .}}
+{{end}}

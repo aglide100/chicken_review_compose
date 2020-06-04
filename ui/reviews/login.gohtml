@@ -1,0 +1,19 @@
+{{define "login_view"}}
+<article>
+    <form name="loginForm" action="/reviews/login">
+        <input type="text" placeholder="ID">
+        <input type="text" placeholder="PASSWORD">
+        <input type="submit">
+    </form>
+</article>
+<script>
+    function Submit() {
+        document.loginForm.submit();
+    }
+</script>
+
+{{end}}
+
+{{define "content"}}
+{{template "login_view" .}}
+{{end}}
