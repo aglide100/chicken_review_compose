@@ -1,11 +1,11 @@
 package views
 
 import (
+	"chicken_review_webserver/ui"
 	"fmt"
 	"io"
 	"io/ioutil"
 	"text/template"
-	"webserver/ui"
 )
 
 var DefaultBaseHTMLContext = BaseHTMLContext{
