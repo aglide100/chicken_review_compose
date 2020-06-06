@@ -1,10 +1,10 @@
 package db
 
 import (
-	"chicken-review/webserver/pkg/models"
 	"database/sql"
 	"fmt"
 	"log"
+	"webserver/pkg/models"
 
 	_ "github.com/lib/pq"
 )
