@@ -1,8 +1,8 @@
 package views
 
 import (
-	"chicken-review/webserver/pkg/models"
 	"io"
+	"webserver/pkg/models"
 )
 
 type reviewShowView struct {

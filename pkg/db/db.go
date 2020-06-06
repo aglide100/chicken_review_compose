@@ -1,6 +1,6 @@
 package db
 
-import "chicken-review/webserver/pkg/models"
+import "webserver/pkg/models"
 
 type DB interface {
 	ConnectDB(host, port, user, password, dbname string) (*Database, error)

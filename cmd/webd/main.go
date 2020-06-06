@@ -1,21 +1,22 @@
 package main
 
 import (
-	"chicken-review/webserver/pkg/controllers"
-	"chicken-review/webserver/pkg/router"
 	"fmt"
 	"log"
 	"net"
 	"net/http"
 	"os"
 	"strconv"
+	"webserver/pkg/controllers"
+	"webserver/pkg/router"
 
-	"chicken-review/webserver/pkg/db"
+	"webserver/pkg/db"
 
 	"github.com/gorilla/mux"
 )
 
 func main() {
+	log.Println("Start go webapp")
 	if err := realMain(); err != nil {
 		fmt.Errorf("%v", err)
 	}
