@@ -1,8 +1,8 @@
 FROM golang:1.14 AS builder
 MAINTAINER aglide100 <aglide100@gmail.com>
 
-ADD . "/go/src/github.com/aglide100/chicken-review"
-WORKDIR "/go/src/github.com/aglide100/chicken-review"
+ADD . "/go/src/github.com/aglide100/chicken_review_webserver"
+WORKDIR "/go/src/github.com/aglide100/chicken_review_webserver"
 
 RUN mkdir -p /opt/bin/webd/
 RUN mkdir -p /var/lib/webd/
