@@ -1,4 +1,4 @@
-module github.com/aglide100/chicken-review-webserver
+module github.com/aglide100/chicken_review/webserver
 
 go 1.14
 

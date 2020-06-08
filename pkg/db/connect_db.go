@@ -1,10 +1,11 @@
 package db
 
 import (
-	"chicken_review_webserver/pkg/models"
 	"database/sql"
 	"fmt"
 	"log"
+
+	"github.com/aglide100/chicken_review_webserver/pkg/models"
 
 	_ "github.com/lib/pq"
 )

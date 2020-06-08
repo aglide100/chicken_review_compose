@@ -2,7 +2,8 @@ package views
 
 import (
 	"io"
-	"chicken_review_webserver/pkg/models"
+
+	"github.com/aglide100/chicken_review_webserver/pkg/models"
 )
 
 type reviewUpdateView struct {

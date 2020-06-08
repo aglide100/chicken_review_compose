@@ -1,9 +1,10 @@
 package controllers
 
 import (
-	"chicken_review_webserver/pkg/views"
 	"log"
 	"net/http"
+
+	"github.com/aglide100/chicken_review_webserver/pkg/views"
 )
 
 type NotFoundController struct {

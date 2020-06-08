@@ -1,8 +1,6 @@
 package main
 
 import (
-	"chicken_review_webserver/pkg/controllers"
-	"chicken_review_webserver/pkg/router"
 	"fmt"
 	"log"
 	"net"
@@ -10,7 +8,10 @@ import (
 	"os"
 	"strconv"
 
-	"chicken_review_webserver/pkg/db"
+	"github.com/aglide100/chicken_review_webserver/pkg/controllers"
+	"github.com/aglide100/chicken_review_webserver/pkg/router"
+
+	"github.com/aglide100/chicken_review_webserver/pkg/db"
 
 	"github.com/gorilla/mux"
 )

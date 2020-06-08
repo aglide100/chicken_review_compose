@@ -1,8 +1,9 @@
 package views
 
 import (
-	"chicken_review_webserver/pkg/models"
 	"io"
+
+	"github.com/aglide100/chicken_review_webserver/pkg/models"
 )
 
 type reviewSearchView struct {

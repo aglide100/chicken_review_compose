@@ -1,11 +1,12 @@
 package views
 
 import (
-	"chicken_review_webserver/ui"
 	"fmt"
 	"io"
 	"io/ioutil"
 	"text/template"
+
+	"github.com/aglide100/chicken_review_webserver/ui"
 )
 
 var DefaultBaseHTMLContext = BaseHTMLContext{
