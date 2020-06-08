@@ -1,6 +1,9 @@
 package controllers
 
 import (
+	"chicken_review_webserver/pkg/db"
+	"chicken_review_webserver/pkg/models"
+	"chicken_review_webserver/pkg/views"
 	"fmt"
 	"io"
 	"io/ioutil"
@@ -11,9 +14,6 @@ import (
 	"regexp"
 	"strconv"
 	"strings"
-	"webserver/pkg/db"
-	"webserver/pkg/models"
-	"webserver/pkg/views"
 )
 
 type ReviewController struct {

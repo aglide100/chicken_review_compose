@@ -1,16 +1,16 @@
 package main
 
 import (
+	"chicken_review_webserver/pkg/controllers"
+	"chicken_review_webserver/pkg/router"
 	"fmt"
 	"log"
 	"net"
 	"net/http"
 	"os"
 	"strconv"
-	"webserver/pkg/controllers"
-	"webserver/pkg/router"
 
-	"webserver/pkg/db"
+	"chicken_review_webserver/pkg/db"
 
 	"github.com/gorilla/mux"
 )

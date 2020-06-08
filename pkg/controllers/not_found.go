@@ -1,9 +1,9 @@
 package controllers
 
 import (
+	"chicken_review_webserver/pkg/views"
 	"log"
 	"net/http"
-	"webserver/pkg/views"
 )
 
 type NotFoundController struct {

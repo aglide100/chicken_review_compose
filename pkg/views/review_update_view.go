@@ -2,7 +2,7 @@ package views
 
 import (
 	"io"
-	"webserver/pkg/models"
+	"chicken_review_webserver/pkg/models"
 )
 
 type reviewUpdateView struct {
