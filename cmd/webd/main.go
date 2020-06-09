@@ -14,14 +14,16 @@ import (
 	"github.com/aglide100/chicken_review_webserver/pkg/db"
 )
 
+/*
+
 func main() {
 
 	if err := realMain(); err != nil {
 		fmt.Errorf("%v", err)
 	}
 }
-
-func realMain() error {
+*/
+func main() {
 	log.Printf("start realMain")
 
 	listenAddr := os.Getenv("LISTEN_ADDR")
@@ -37,7 +39,7 @@ func realMain() error {
 	dbport, _ := strconv.Atoi(dbPort)
 	myDB, err := db.ConnectDB(dbAddr, dbport, dbUser, dbPassword, dbName)
 	if err != nil {
-		return fmt.Errorf("connecting to DB: %v", err)
+		fmt.Errorf("connecting to DB: %v", err)
 	}
 
 	defaultCtrl := &controllers.DefaultController{}
@@ -72,9 +74,9 @@ func realMain() error {
 	ln, err := net.Listen("tcp", addr)
 	log.Println("declare listener")
 	if err != nil {
-		return fmt.Errorf("creating network listener: %v", err)
+		fmt.Errorf("creating network listener: %v", err)
 	}
-	//defer ln.Close()
+	defer ln.Close()
 
 	srv := http.Server{Handler: rtr}
 	log.Printf("listening on address %q", ln.Addr().String())
@@ -82,8 +84,7 @@ func realMain() error {
 	err = srv.Serve(ln)
 	log.Printf("starting server at address %q", ln.Addr().String())
 	if err != nil {
-		return fmt.Errorf("serving: %v", err)
+		fmt.Errorf("serving: %v", err)
 	}
 
-	return nil
 }
