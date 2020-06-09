@@ -4,8 +4,6 @@ import (
 	"log"
 	"net/http"
 	"regexp"
-
-	"github.com/gorilla/mux"
 )
 
 type routeRule struct {
@@ -18,14 +16,12 @@ type routeRule struct {
 type Router struct {
 	rules           []*routeRule
 	notFoundHandler http.Handler
-	gortr           *mux.Router
 }
 
-func NewRouter(notFoundHandler http.Handler, gortr *mux.Router) *Router {
+func NewRouter(notFoundHandler http.Handler) *Router {
 	return &Router{
 		rules:           make([]*routeRule, 0),
 		notFoundHandler: notFoundHandler,
-		gortr:           gortr,
 	}
 }
 
@@ -37,7 +33,7 @@ func (rtr *Router) AddRule(name string, method, pattern string, handler http.Han
 		handler: handler,
 	}
 	rtr.rules = append(rtr.rules, newRule)
-	rtr.gortr.HandleFunc(pattern, handler)
+	log.Println("add router rule :", name, pattern)
 }
 
 func (rtr *Router) ServeHTTP(resp http.ResponseWriter, req *http.Request) {
@@ -57,6 +53,5 @@ func (rtr *Router) ServeHTTP(resp http.ResponseWriter, req *http.Request) {
 	}
 
 	// no rule for request
-	//rtr.gortr.NotFoundHandler.ServeHTTP(resp, req)
 	rtr.notFoundHandler.ServeHTTP(resp, req)
 }

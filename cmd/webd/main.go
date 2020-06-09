@@ -12,18 +12,18 @@ import (
 	"github.com/aglide100/chicken_review_webserver/pkg/router"
 
 	"github.com/aglide100/chicken_review_webserver/pkg/db"
-
-	"github.com/gorilla/mux"
 )
 
 func main() {
-	log.Println("Start go webapp")
+
 	if err := realMain(); err != nil {
 		fmt.Errorf("%v", err)
 	}
 }
 
 func realMain() error {
+	log.Printf("start realMain")
+
 	listenAddr := os.Getenv("LISTEN_ADDR")
 	listenPort := os.Getenv("LISTEN_PORT")
 	dbAddr := os.Getenv("DB_ADDR")
@@ -33,14 +33,6 @@ func realMain() error {
 	dbName := os.Getenv("DB_NAME")
 
 	addr := net.JoinHostPort(listenAddr, listenPort)
-
-	ln, err := net.Listen("tcp", addr)
-	if err != nil {
-		return fmt.Errorf("creating network listener: %v", err)
-	}
-	defer ln.Close()
-
-	log.Printf("listening on address %q", ln.Addr().String())
 
 	dbport, _ := strconv.Atoi(dbPort)
 	myDB, err := db.ConnectDB(dbAddr, dbport, dbUser, dbPassword, dbName)
@@ -52,12 +44,7 @@ func realMain() error {
 	notFoundCtrl := &controllers.NotFoundController{}
 	reviewsCtrl := controllers.NewReviewController(myDB)
 
-	gortr := mux.NewRouter()
-
-	rtr := router.NewRouter(notFoundCtrl, gortr)
-	gortr.HandleFunc("/login$", reviewsCtrl.Login).Methods("GET")
-
-	gortr.PathPrefix("/")
+	rtr := router.NewRouter(notFoundCtrl)
 
 	rtr.AddRule("default", "GET", "^/$", defaultCtrl.ServeHTTP)
 	rtr.AddRule("reviews", "GET", "/login$", reviewsCtrl.Login)
@@ -81,21 +68,22 @@ func realMain() error {
 	//rtr.AddRule("reviews", "GET", "^/reviews/ui/img/([0-9]+)/[a-z0-9A-Z_+.-.\\s.-]+.(?i)(img|jpg|jpeg|png|gif)$", reviewsCtrl.GetImage)
 	rtr.AddRule("reviews", "GET", "^/reviews/ui/img/[a-z0-9A-Z_+.-.\\s.-]+.(?i)(img|jpg|jpeg|png|gif)$", reviewsCtrl.GetImage)
 
-	srv := http.Server{Handler: rtr}
+	log.Println("tcp listen start addr: %v", addr)
+	ln, err := net.Listen("tcp", addr)
+	log.Println("declare listener")
+	if err != nil {
+		return fmt.Errorf("creating network listener: %v", err)
+	}
+	//defer ln.Close()
 
-	log.Printf("starting server at address %q", ln.Addr().String())
+	srv := http.Server{Handler: rtr}
+	log.Printf("listening on address %q", ln.Addr().String())
+
 	err = srv.Serve(ln)
+	log.Printf("starting server at address %q", ln.Addr().String())
 	if err != nil {
 		return fmt.Errorf("serving: %v", err)
 	}
 
-	/*
-		srv := &http.Server{Handler: gortr, Addr: ln.Addr().String()}
-		log.Printf("starting server at address %q", ln.Addr().String())
-		err = srv.Serve(ln)
-		if err != nil {
-			return fmt.Errorf("serving: %v", err)
-		}
-	*/
 	return nil
 }
