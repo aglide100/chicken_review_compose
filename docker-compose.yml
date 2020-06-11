@@ -1,0 +1,46 @@
+version : '3'
+
+services:
+    app:
+        container_name: app
+        build: 
+            #context: https://github.com/aglide100/chicken_review_webserver.git
+            context: /Users/heejunmoon/code/src/github.com/aglide100/chicken_review_webserver
+        volumes: 
+            #- /var/lib/webd/ui/img:/tmp/ui/img
+            - /tmp/ui/img:/var/lib/webd/ui/img
+        links: 
+            - postgres:app_db
+        ports: 
+            - "8080:80"
+        environment: 
+            LISTEN_ADDR: 0.0.0.0s
+            LISTEN_PORT: 80
+            DB_ADDR: app_db
+            DB_PORT: 5432
+            DB_USER: review_admin
+            DB_PASSWORD: ${USERPWD}
+            DB_NAME: chicken_review
+        depends_on:
+            - postgres
+    postgres:
+        container_name: postgres
+        build: 
+            context: /Users/heejunmoon/code/src/github.com/aglide100/chicken_review_DB
+            #context: https://github.com/aglide100/chicken_review_DB.git
+        volumes:
+            - /tmp/postgres/data:/var/lib/postgresql/data
+        ports: 
+            - "5432:5432"
+        environment: 
+            POSTGRES_DB: chicken_review
+            #POSTGRES_HOST_AUTH_METHOD: trust
+            POSTGRES_USER: review_admin
+            POSTGRES_PASSWORD: ${USERPWD}
+            POSTGRES_INITDB_ARGS: --encoding=UTF-8
+
+    
+
+        
+
+    
