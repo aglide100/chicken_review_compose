@@ -21,6 +21,7 @@ services:
             DB_USER: review_admin
             DB_PASSWORD: ${USERPWD}
             DB_NAME: chicken_review
+            GOOGLE_MAPS_API_KEYS: ${GMAPAPI}
         depends_on:
             - postgres
     postgres:
@@ -28,8 +29,8 @@ services:
         build: 
             context: /Users/heejunmoon/code/src/github.com/aglide100/chicken_review_DB
             #context: https://github.com/aglide100/chicken_review_DB.git
-        volumes:
-            - /tmp/postgres/data:/var/lib/postgresql/data
+        #volumes:
+        #    - /tmp/postgres/data:/var/lib/postgresql/data
         ports: 
             - "5432:5432"
         environment: 
