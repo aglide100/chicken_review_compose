@@ -1,4 +1,10 @@
-version : '3'
+version : '3.5'
+x-services-volume:
+    &services-volume
+    #driver: chicken-review
+    #name: chicken_review
+    type: bind
+    source: /${HOST}
 
 services:
     app:
@@ -6,9 +12,10 @@ services:
         build: 
             context: https://github.com/aglide100/chicken_review_webserver.git
             #context: /Users/heejunmoon/code/src/github.com/aglide100/chicken_review_webserver
-        volumes: 
-            #- /var/lib/webd/ui/img:/tmp/ui/img
-            - /tmp/ui/img:/var/lib/webd/ui/img
+        volumes:
+            - <<: *services-volume
+              source: /${HOST}/app/img
+              target: /var/lib/webd/ui/img
         links: 
             - postgres:app_db
         ports: 
@@ -35,18 +42,16 @@ services:
             #context: /Users/heejunmoon/code/src/github.com/aglide100/chicken_review_DB
             context: https://github.com/aglide100/chicken_review_DB.git
         volumes:
-            - /tmp/postgres/data:/var/lib/postgresql/data
+            - <<: *services-volume
+              source: /${HOST}/postgres
+              target: /var/lib/postgresql/data
+            #- "/var/run/postgres/postgres.sock:/var/run/postgres/postgres.sock"
         ports: 
             - "5432:5432"
         environment: 
+            PGDATA: /var/lib/postgresql/data
             POSTGRES_DB: chicken_review
             #POSTGRES_HOST_AUTH_METHOD: trust
             POSTGRES_USER: review_admin
             POSTGRES_PASSWORD: ${USERPWD}
             POSTGRES_INITDB_ARGS: --encoding=UTF-8
-
-    
-
-        
-
-    
