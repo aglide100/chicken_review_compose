@@ -4,7 +4,7 @@ x-services-volume:
     #driver: chicken-review
     #name: chicken_review
     type: bind
-    source: /${HOST} 
+    #source: /${HOST} 
 
 services:
     app:
@@ -14,17 +14,22 @@ services:
             context: /Users/heejunmoon/code/src/github.com/aglide100/chicken_review_webserver
         volumes:
             - <<: *services-volume
+              source: "../chicken_review_compose/cert"
+              target: "/var/lib/webd/cert/"
+
+            - <<: *services-volume
               source: /${HOST}/app/img
               target: /var/lib/webd/ui/img
+            
         links: 
             - postgres:app_db
         ports: 
-            - "12500:80"
+            - "12500:443"
         networks:
             - docker_network
         environment: 
             LISTEN_ADDR: 0.0.0.0s
-            LISTEN_PORT: 80
+            LISTEN_PORT: ":443"
             DB_ADDR: app_db
             DB_PORT: 5432
             DB_USER: review_admin
@@ -36,6 +41,9 @@ services:
             NAVER_SECRET: ${NAVERSECRET}
             GOOGLE_KEY: ${GOOGLEKEY}
             GOOGLE_SECRET: ${GOOGLESECRET}
+            KAKAO_MAPS_API_KEYS: ${KAKAOMAPAPI}
+            TLS_CERT_FILEPATH: ${TLS_CERT_FILEPATH}
+            TLS_KEY_FILEPATH: ${TLS_KEY_FILEPATH}
         depends_on:
             - postgres
     postgres:
