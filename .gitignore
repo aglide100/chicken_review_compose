@@ -1,4 +1,5 @@
 .DS_Store
 .env
 
-cert
+cert.pem
+privkey.pem
