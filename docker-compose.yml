@@ -10,8 +10,8 @@ services:
     app:
         container_name: app
         build: 
-            #context: https://github.com/aglide100/chicken_review_webserver.git
-            context: /Users/heejunmoon/code/src/github.com/aglide100/chicken_review_webserver
+            context: https://github.com/aglide100/chicken_review_webserver.git
+            #context: /Users/heejunmoon/code/src/github.com/aglide100/chicken_review_webserver
             #context: /mnt/c/Users/HeeJun/code/src/github.com/aglide100/chicken_review_webserver
         volumes:
             - <<: *services-volume
